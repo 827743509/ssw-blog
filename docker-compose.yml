@@ -1,0 +1,18 @@
+services:
+  ssw-blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zhou827743509/ssw-blog:latest
+    container_name: ssw-blog
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      SPRING_PROFILES_ACTIVE: pro
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/ssw?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 562424706Xiao
+      JAVA_OPTS: -Xms256m -Xmx512m
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
