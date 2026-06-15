@@ -1,0 +1,18 @@
+server:
+  port: 9000
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+qiniu:
+  accessKey: fu252uh0lSVSifVB7An9uoPGNTjAo8VliGpaHoNu
+  secretKey: S1hqt3a5drmC0XqYmyFJS5LVXg8Jo42LObXxgAGB
+  bucket: ssw
+  path: http://image.aimeiliyalove.xyz
+spring:
+  profiles:
+    active: prod
+

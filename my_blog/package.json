@@ -1,0 +1,27 @@
+{
+  "name": "my_blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
+    "@babel/runtime": "^7.29.7",
+    "ant-design-vue": "^3.2.20",
+    "axios": "0.18.1",
+    "core-js": "^3.6.4",
+    "hls.js": "^1.5.20",
+    "nprogress": "^0.2.0",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0",
+    "vue3-aplayer": "^1.7.3"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
+    "@vue/compiler-sfc": "^3.0.0",
+    "compression-webpack-plugin": "^10.0.0"
+  }
+}
