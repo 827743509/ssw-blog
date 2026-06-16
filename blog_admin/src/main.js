@@ -4,7 +4,7 @@ import 'normalize.css/normalize.css'
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import locale from 'element-plus/es/locale/lang/en'
+import locale from 'element-plus/lib/locale/lang/en'
 
 import '@/styles/index.scss'
 

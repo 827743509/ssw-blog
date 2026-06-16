@@ -19,6 +19,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             "/blog/read",
             "/blog/getTimeLine",
             "/blog/getByPage",
+            "/upload/uploadImage",
             "/admin/getAdmin"
     };
 

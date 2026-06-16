@@ -12,11 +12,6 @@
               <a-icon type="mail" />博客
             </router-link>
           </a-menu-item>
-          <a-menu-item key="2">
-            <router-link to="/note/list">
-              <a-icon type="mail" />笔记
-            </router-link>
-          </a-menu-item>
           <a-menu-item key="3">
             <router-link to="/about">
               <a-icon type="mail" />关于我

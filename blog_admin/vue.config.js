@@ -15,6 +15,16 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
+function restreamBody(proxyReq, req) {
+  if (!req.body || !Object.keys(req.body).length) {
+    return
+  }
+  const bodyData = JSON.stringify(req.body)
+  proxyReq.setHeader('Content-Type', 'application/json')
+  proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
+  proxyReq.write(bodyData)
+}
+
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
   /**
@@ -32,6 +42,38 @@ module.exports = {
   devServer: {
     port: port,
     open: true,
+    proxy: {
+      [process.env.VUE_APP_BASE_API + '/blog']: {
+        target: 'http://127.0.0.1:9000',
+        changeOrigin: true,
+        onProxyReq: restreamBody,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''
+        }
+      },
+      [process.env.VUE_APP_BASE_API + '/music']: {
+        target: 'http://127.0.0.1:9000',
+        changeOrigin: true,
+        onProxyReq: restreamBody,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''
+        }
+      },
+      [process.env.VUE_APP_BASE_API + '/type']: {
+        target: 'http://127.0.0.1:9000',
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''
+        }
+      },
+      [process.env.VUE_APP_BASE_API + '/upload']: {
+        target: 'http://127.0.0.1:9000',
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''
+        }
+      }
+    },
     client: {
       overlay: {
         warnings: false,

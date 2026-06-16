@@ -78,11 +78,8 @@
     </select>
     <select id="getByPage" parameterType="com.ssw.blog.utils.Page" resultMap="VoResultMap">
         select b.blog_id, b.blog_title, b.blog_image,
-        b.created_time, b.update_time,
-        group_concat(t.type_name order by t.type_id separator ',') as type_name
+        b.created_time, b.update_time
         from bl_blog as b
-        left join bl_type_blog as bt on b.blog_id=bt.blog_id
-        left join bl_type as t on bt.type_id=t.type_id
         where 1=1
         <if test="params.blogTitle!=null and params.blogTitle!=''">
             and b.blog_title like CONCAT('%',#{params.blogTitle},'%')
@@ -93,7 +90,6 @@
                 where filter_bt.blog_id=b.blog_id and filter_bt.type_id=#{params.typeId}
             )
         </if>
-        group by b.blog_id, b.blog_title, b.blog_image, b.created_time, b.update_time
         <if test="sortColumn!=null and sortColumn!=''">
             order by ${sortColumn} ${sortMethod}
         </if>

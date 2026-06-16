@@ -62,7 +62,10 @@
         artist,
         url,
         cover,
-        lrc  from bl_music where id=#{id}
+        lrc,
+        created_time,
+        enable
+        from bl_music where id=#{id}
     </select>
     <select id="getByPage" parameterType="com.ssw.blog.utils.Page" resultMap="BaseResultMap">
         select
@@ -82,7 +85,7 @@
                 and artist like CONCAT ('%',#{params.artist},'%')
             </if>
             <if test="params.enable!=null and params.enable!='' ">
-                and enabled =#{params.enable}
+                and enable =#{params.enable}
             </if>
         </where>
         <if test="sortColumn!=null and sortColumn!=''">
@@ -102,7 +105,7 @@
                 and artist like CONCAT ('%',#{params.artist},'%')
             </if>
             <if test="params.enable!=null and params.enable!='' ">
-                and enabled =#{params.enable}
+                and enable =#{params.enable}
             </if>
         </where>
     </select>

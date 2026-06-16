@@ -9,9 +9,7 @@ import '@/permission'
 
 createApp(App)
   .component('a-icon', AntIcon)
+  .component('aplayer', VueAPlayer)
   .use(router)
   .use(Antd)
-  .use(VueAPlayer, {
-    defaultCover: 'https://github.com/u3u.png'
-  })
   .mount('#app')
