@@ -1,8 +1,5 @@
 services:
   ssw-blog:
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: zhou827743509/ssw-blog:latest
     container_name: ssw-blog
     restart: unless-stopped
