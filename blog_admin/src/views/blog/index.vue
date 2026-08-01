@@ -76,7 +76,11 @@
           </el-select>
         </el-form-item>
         <el-form-item label="内容" prop="blogContent">
-          <el-input v-model="form.blogContent" type="textarea" :rows="10" placeholder="请输入博客内容" />
+          <rich-text-editor
+            v-model="form.blogContent"
+            placeholder="请输入博客内容，可直接粘贴图片"
+            @blur="validateContent"
+          />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -92,6 +96,13 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { createBlog, deleteBlog, fetchBlog, fetchBlogPage, updateBlog } from '@/api/blog'
 import { fetchTypeList } from '@/api/type'
 import { uploadImage } from '@/api/upload'
+import RichTextEditor from '@/components/RichTextEditor'
+
+function getPlainContent(html) {
+  const div = document.createElement('div')
+  div.innerHTML = html || ''
+  return div.textContent.replace(/\s/g, '') || (div.querySelector('img') ? 'image' : '')
+}
 
 const defaultForm = () => ({
   blogId: '',
@@ -103,6 +114,9 @@ const defaultForm = () => ({
 
 export default {
   name: 'BlogManage',
+  components: {
+    RichTextEditor
+  },
   data() {
     return {
       loading: false,
@@ -122,7 +136,18 @@ export default {
       form: defaultForm(),
       rules: {
         blogTitle: [{ required: true, message: '请输入博客标题', trigger: 'blur' }],
-        blogContent: [{ required: true, message: '请输入博客内容', trigger: 'blur' }]
+        blogContent: [
+          {
+            validator: (rule, value, callback) => {
+              if (getPlainContent(value)) {
+                callback()
+              } else {
+                callback(new Error('请输入博客内容'))
+              }
+            },
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
@@ -192,6 +217,9 @@ export default {
       const res = await uploadImage(options.file)
       this.form.blogImage = res.data
       ElMessage.success('封面上传成功')
+    },
+    validateContent() {
+      this.$refs.formRef && this.$refs.formRef.validateField('blogContent')
     },
     handleSubmit() {
       this.$refs.formRef.validate(async valid => {

@@ -58,4 +58,22 @@ export default {
   margin-top: 10px;
 }
 
+.blog-content :deep(pre) {
+  padding: 14px 16px;
+  margin: 16px 0;
+  overflow-x: auto;
+  color: #e5e7eb;
+  white-space: pre;
+  background: #1f2937;
+  border-radius: 4px;
+}
+
+.blog-content :deep(pre code) {
+  padding: 0;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: inherit;
+  background: transparent;
+}
 </style>
