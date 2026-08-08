@@ -13,8 +13,8 @@
       <span
         v-for="item in typeList"
         :key="item.typeId"
-        class="type-name-select"
-        @click="changeselect($event, item.typeId)"
+        :class="item.typeId === selectedTypeId ? 'type-name-selected' : 'type-name-select'"
+        @click="changeselect(item.typeId)"
       >{{ item.typeName }}</span>
     </div>
     <a-input-search
@@ -82,6 +82,7 @@ export default {
         padding: '18px'
       },
       typeList: [],
+      selectedTypeId: 0,
       List: [],
       totalCount: 0,
       page: {
@@ -126,11 +127,8 @@ export default {
       this.page.sortMethod = 'desc'
       this.getByPage()
     },
-    changeselect(e, id) {
-      document.getElementsByClassName('type-name-selected').forEach(item => {
-        item.setAttribute('class', 'type-name-select')
-      })
-      e.target.setAttribute('class', 'type-name-selected')
+    changeselect(id) {
+      this.selectedTypeId = id
       this.page.currentPage = 1
       this.page.params.typeId = id === 0 ? null : id
       this.getByPage()

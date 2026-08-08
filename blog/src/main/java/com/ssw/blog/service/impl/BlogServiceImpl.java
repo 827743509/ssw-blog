@@ -73,11 +73,8 @@ public class BlogServiceImpl implements BlogService {
         List<BlogVo> blogVoList = blogMapper.getByPage(page);
         blogVoList.forEach(this::fillTypes);
         page.setList(blogVoList);
-        int loadedCount = (page.getCurrentPage() - 1) * page.getPageSize() + blogVoList.size();
-        if (blogVoList.size() == page.getPageSize()) {
-            loadedCount++;
-        }
-        page.setTotalCount(loadedCount);
+        int totalCount = blogMapper.getCountByPage(page);
+        page.setTotalCount(totalCount);
         return page;
     }
 

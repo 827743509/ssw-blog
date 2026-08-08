@@ -8,8 +8,8 @@
       <span class="type-title">分类：</span>
       <span
         :key="item.typeId"
-        @click="changeselect($event, item.typeId)"
-        class="type-name-select"
+        @click="changeselect(item.typeId)"
+        :class="item.typeId === selectedTypeId ? 'type-name-selected' : 'type-name-select'"
         v-for="item in typeList"
       >{{ item.typeName }}</span>
     </div>
@@ -81,6 +81,7 @@ export default {
     return {
       current: ['createdTime'],
       typeList: [],
+      selectedTypeId: 0,
       List: [],
       totalCount: 0,
       page: {
@@ -126,19 +127,10 @@ export default {
       this.page.sortMethod = 'desc'
       this.getByPage()
     },
-    changeselect(e, id) {
-      document.getElementsByClassName('type-name-selected').forEach(e => {
-        e.setAttribute('class', 'type-name-select')
-      })
-      e.target.setAttribute('class', 'type-name-selected')
-      if (id === 0) {
-        this.page.currentPage = 1
-        this.page.params.typeId = null
-      } else {
-        this.page.currentPage = 1
-        this.page.params.typeId = id
-      }
-
+    changeselect(id) {
+      this.selectedTypeId = id
+      this.page.currentPage = 1
+      this.page.params.typeId = id === 0 ? null : id
       this.getByPage()
     }
   }
